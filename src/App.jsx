@@ -1,39 +1,49 @@
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import Example from './Tailwind';
+import TailWind from './Tailwind';
+import Home from './Home';
+
+const navigation = [
+  { name: 'Home', href: '/', current: true },
+  { name: 'About', href: '/about', current: false },
+  { name: 'Users', href: '/users', current: false },
+];
+
+function classNames(...classes) {
+  return classes.filter(Boolean).join(' ');
+}
 
 function App() {
   return (
     <Router>
-      <div>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
+      <div className="bg-gray-800 p-4">
+        <ul className="flex space-x-4">
+          {navigation.map((item) => (
+            <li
+              key={item.name}
+              href={item.href}
+              aria-current={item.current ? 'page' : undefined}
+              className={classNames(
+                item.current
+                  ? 'bg-gray-900 text-white'
+                  : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                'rounded-md px-3 py-2 text-sm font-medium'
+              )}
+            >
+              <Link to={item.href}>{item.name}</Link>
             </li>
-            <li>
-              <Link to="/about">About</Link>
-            </li>
-            <li>
-              <Link to="/users">Users</Link>
-            </li>
-          </ul>
-        </nav>
-
-        <Routes>
-          <Route path="/about" element={<About />}></Route>
-          <Route path="/users" element={<Users />}></Route>
-          <Route path="/" element={<Home />}></Route>
-        </Routes>
+          ))}
+        </ul>
       </div>
+      <Routes>
+        <Route path="/about" element={<About />}></Route>
+        <Route path="/users" element={<Users />}></Route>
+        <Route path="/" element={<Home />}></Route>
+      </Routes>
       <div className="fixed bottom-0">
-        <Example></Example>
+        <TailWind></TailWind>
       </div>
     </Router>
   );
-}
-
-function Home() {
-  return <h2>Home</h2>;
 }
 
 function About() {
