@@ -1,4 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
+import Tailwind from './Tailwind';
 
 function App() {
   return (
@@ -24,6 +26,8 @@ function App() {
           <Route path="/" element={<Home />}></Route>
         </Routes>
       </div>
+      <h1 className="text-red-300 underline">Hello World!</h1>
+      <Tailwind></Tailwind>
     </Router>
   );
 }
