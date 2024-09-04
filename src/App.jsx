@@ -1,8 +1,12 @@
+import { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import TailWind from './Tailwind';
 import Home from './Home';
+import About from './About';
+import Users from './Users';
+import { FlagIcon } from '@heroicons/react/24/outline';
 
-const navigation = [
+const initialNavigation  = [
   { name: 'Home', href: '/', current: true },
   { name: 'About', href: '/about', current: false },
   { name: 'Users', href: '/users', current: false },
@@ -13,19 +17,33 @@ function classNames(...classes) {
 }
 
 function App() {
+  const [navigation, setNavigation] = useState(initialNavigation);
+
+  const onClick = (selectedItem) => {
+    setNavigation((prevNavigation) => 
+      prevNavigation.map(item =>
+        item.name === selectedItem.name 
+        ? {...item, current: true}
+        : {...item, current: false}
+      )
+    )
+  }
+
   return (
     <Router>
-      <div className="bg-gray-800 p-4">
-        <ul className="flex space-x-4">
+      <div className="bg-lime-900 p-4">
+        <ul className="flex space-x-4" >
           {navigation.map((item) => (
             <li
+              // onClick={()=> console.log("e")}
+              onClick={() => onClick(item)}
               key={item.name}
               href={item.href}
               aria-current={item.current ? 'page' : undefined}
               className={classNames(
                 item.current
-                  ? 'bg-gray-900 text-white'
-                  : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                  ? 'bg-lime-950 text-white'
+                  : 'text-gray-300 hover:bg-lime-950 hover:text-white',
                 'rounded-md px-3 py-2 text-sm font-medium'
               )}
             >
@@ -39,19 +57,8 @@ function App() {
         <Route path="/users" element={<Users />}></Route>
         <Route path="/" element={<Home />}></Route>
       </Routes>
-      <div className="fixed bottom-0">
-        <TailWind></TailWind>
-      </div>
     </Router>
   );
-}
-
-function About() {
-  return <h2>About</h2>;
-}
-
-function Users() {
-  return <h2>Users</h2>;
 }
 
 export default App;
