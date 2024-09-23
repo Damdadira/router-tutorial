@@ -52,7 +52,7 @@ function App() {
         </ul>
       </div>
       <Routes>
-        <Route path="/profiles" element={<Profile username='velopert'/>}></Route>
+        <Route path="/profiles/:username" element={<Profile />}></Route>
         <Route path="/users" element={<Users />}></Route>
         <Route path="/about" element={<About />}></Route>
         <Route path="/" element={<Home />}></Route>
