@@ -1,15 +1,15 @@
 import { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import TailWind from './Tailwind';
 import Home from './Home';
 import About from './About';
 import Users from './Users';
-import { FlagIcon } from '@heroicons/react/24/outline';
+import Profile from './Profile';
 
 const initialNavigation  = [
   { name: 'Home', href: '/', current: true },
   { name: 'About', href: '/about', current: false },
   { name: 'Users', href: '/users', current: false },
+  { name: 'Profile', href: '/profiles', current: false },
 ];
 
 function classNames(...classes) {
@@ -35,7 +35,6 @@ function App() {
         <ul className="flex space-x-4" >
           {navigation.map((item) => (
             <li
-              // onClick={()=> console.log("e")}
               onClick={() => onClick(item)}
               key={item.name}
               href={item.href}
@@ -53,8 +52,9 @@ function App() {
         </ul>
       </div>
       <Routes>
-        <Route path="/about" element={<About />}></Route>
+        <Route path="/profiles" element={<Profile username='velopert'/>}></Route>
         <Route path="/users" element={<Users />}></Route>
+        <Route path="/about" element={<About />}></Route>
         <Route path="/" element={<Home />}></Route>
       </Routes>
     </Router>
