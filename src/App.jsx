@@ -4,12 +4,14 @@ import Home from './Home';
 import About from './About';
 import Users from './Users';
 import Profiles from './Profiles';
+import HistorySample from './HistorySample';
 
 const initialNavigation = [
   { name: 'Home', href: '/', current: true },
   { name: 'About', href: '/about', current: false },
   { name: 'Users', href: '/users', current: false },
   { name: 'Profile', href: '/profiles', current: false },
+  { name: 'History', href: '/history', current: false },
 ];
 
 function classNames(...classes) {
@@ -20,6 +22,7 @@ function NavigationMenu() {
   const [navigation, setNavigation] = useState(initialNavigation);
   const navigate = useNavigate();
 
+  /**수정할 부분: 새로고침하면 page가 Home으로 초기화 안됨*/
   const onClick = (selectedItem) => {
     navigate(selectedItem.href); 
 
@@ -62,8 +65,9 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
-        <Route path="/profiles/*" element={<Profiles />} />
         <Route path="/users" element={<Users />} />
+        <Route path="/profiles/*" element={<Profiles />} />
+        <Route path="/history" element={<HistorySample />} />
       </Routes>
     </Router>
   );
