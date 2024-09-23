@@ -3,9 +3,9 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import Home from './Home';
 import About from './About';
 import Users from './Users';
-import Profile from './Profile';
+import Profiles from './Profiles';
 
-const initialNavigation  = [
+const initialNavigation = [
   { name: 'Home', href: '/', current: true },
   { name: 'About', href: '/about', current: false },
   { name: 'Users', href: '/users', current: false },
@@ -20,24 +20,23 @@ function App() {
   const [navigation, setNavigation] = useState(initialNavigation);
 
   const onClick = (selectedItem) => {
-    setNavigation((prevNavigation) => 
+    setNavigation((prevNavigation) =>
       prevNavigation.map(item =>
         item.name === selectedItem.name 
-        ? {...item, current: true}
-        : {...item, current: false}
+        ? { ...item, current: true }
+        : { ...item, current: false }
       )
-    )
-  }
+    );
+  };
 
   return (
     <Router>
       <div className="bg-lime-900 p-4">
-        <ul className="flex space-x-4" >
+        <ul className="flex space-x-4">
           {navigation.map((item) => (
             <li
               onClick={() => onClick(item)}
               key={item.name}
-              href={item.href}
               aria-current={item.current ? 'page' : undefined}
               className={classNames(
                 item.current
@@ -52,10 +51,10 @@ function App() {
         </ul>
       </div>
       <Routes>
-        <Route path="/profiles/:username" element={<Profile />}></Route>
-        <Route path="/users" element={<Users />}></Route>
-        <Route path="/about" element={<About />}></Route>
-        <Route path="/" element={<Home />}></Route>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/profiles/*" element={<Profiles />} />
+        <Route path="/users" element={<Users />} />
       </Routes>
     </Router>
   );
